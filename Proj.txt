@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neuromove Demo</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: #111a2e;
+      --text: #e8eefc;
+      --muted: #b9c4e6;
+      --accent: #4aa3ff;
+      --border: rgba(255,255,255,0.10);
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(74,163,255,0.20), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(110,231,183,0.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header{
+      padding: 28px 18px 10px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .logo{
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(74,163,255,1), rgba(110,231,183,1));
+      box-shadow: 0 10px 30px rgba(74,163,255,0.18);
+    }
+    h1{
+      font-size: 22px;
+      margin: 0;
+      letter-spacing: 0.2px;
+    }
+    .subtitle{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    main{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px){
+      main{ grid-template-columns: 1fr; }
+    }
+    .card{
+      background: rgba(17,26,46,0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+    }
+    .card h2{
+      font-size: 16px;
+      margin: 0 0 10px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .badge{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+    }
+    .steps{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .step{
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .step .n{
+      min-width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 700;
+      background: rgba(74,163,255,0.18);
+      border: 1px solid rgba(74,163,255,0.35);
+      color: var(--text);
+    }
+    .step p{ margin: 0; color: var(--text); }
+    .step small{ display:block; margin-top: 4px; color: var(--muted); }
+    figure{
+      margin: 12px 0 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+    figure img{
+      display:block;
+      width: 100%;
+      height: auto;
+    }
+    figcaption{
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.12);
+    }
+    .controls{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn{
+      appearance: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.05s ease, background 0.15s ease;
+      text-align: left;
+    }
+    .btn:hover{ background: rgba(255,255,255,0.07); }
+    .btn:active{ transform: translateY(1px); }
+    .note{
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 0 0;
+    }
+    footer{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 18px 26px;
+      color: rgba(185,196,230,0.75);
+      font-size: 12px;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: rgba(185,196,230,0.9);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 14px;
+      overflow-x:auto;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>Neuromove — Demo</h1>
+        <p class="subtitle">Exercícios simples de motricidade fina (exemplo didático).</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>
+        Exercício: Abrir e Fechar a Mão
+        <span class="badge">Sem dor • Controlado</span>
+      </h2>
+
+      <ul class="steps">
+        <li class="step">
+          <div class="n">1</div>
+          <div>
+            <p>Sente-se com o antebraço apoiado e a mão relaxada.</p>
+            <small>Postura estável, ombro relaxado, punho neutro.</small>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="n">2</div>
+          <div>
+            <p>Abra a mão (espalhe os dedos) por 3 segundos.</p>
+            <small>Abra até onde for confortável, sem “travar” a articulação.</small>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="n">3</div>
+          <div>
+            <p>Feche a mão lentamente (sem forçar) por 3 segundos.</p>
+            <small>Feche devagar, sem apertar forte; foco no controle.</small>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="n">4</div>
+          <div>
+            <p>Repita de forma controlada, sem dor.</p>
+            <small>Ex.: 8–12 repetições • 1–3 séries • pausa de 30–60s.</small>
+          </div>
+        </li>
+      </ul>
+
+      <figure>
+        <img src="imagens/abrir_fechar_mao.jpg" alt="Ilustração: mão aberta e mão fechada (exercício)" />
+        <figcaption>Imagem de referência do movimento (abrir por 3s, fechar por 3s).</figcaption>
+      </figure>
+    </section>
+
+    <aside class="card">
+      <h2>
+        Controles rápidos
+        <span class="badge">Demo</span>
+      </h2>
+
+      <div class="controls">
+        <button class="btn" type="button" onclick="startTimer()">▶ Iniciar cronômetro (3s abrir / 3s fechar)</button>
+        <button class="btn" type="button" onclick="stopTimer()">■ Parar</button>
+      </div>
+
+      <p class="note">Status:</p>
+      <div id="status" class="mono">Pronto. Clique em “Iniciar cronômetro”.</div>
+
+      <p class="note" style="margin-top:12px;">Dica (terminal):</p>
+      <div class="mono">
+        cd "C:\Users\andre\OneDrive\Área de Trabalho\neuromove_demo"<br/>
+        notepad neuromove_demo.html
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    Neuromove Demo — arquivo local HTML. Coloque a imagem em <span class="mono">imagens/abrir_fechar_mao.jpg</span>.
+  </footer>
+
+  <script>
+    let intervalId = null;
+    let phase = 0; // 0 = abrir, 1 = fechar
+    let remaining = 3;
+
+    function renderStatus() {
+      const phaseLabel = phase === 0 ? "ABRIR a mão" : "FECHAR a mão";
+      document.getElementById("status").textContent =
+        "Fase: " + phaseLabel + " | Restam: " + remaining + "s";
+    }
+
+    function tick() {
+      if (remaining <= 1) {
+        // troca fase
+        phase = (phase + 1) % 2;
+        remaining = 3;
+      } else {
+        remaining -= 1;
+      }
+      renderStatus();
+    }
+
+    function startTimer() {
+      stopTimer();
+      phase = 0;
+      remaining = 3;
+      renderStatus();
+      intervalId = setInterval(tick, 1000);
+    }
+
+    function stopTimer() {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = null;
+      document.getElementById("status").textContent =
+        "Parado. Clique em “Iniciar cronômetro”.";
+    }
+  </script>
+</body>
+</html>
